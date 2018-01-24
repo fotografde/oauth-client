@@ -1,5 +1,5 @@
 {
-	"name": "GetPhoto/oauth-client",
+	"name": "fotografde/oauth-client",
 	"description": "Oauth fde client provider for usage with oauth-server",
 	"license": "MIT",
 	"version": "1.0.0",
