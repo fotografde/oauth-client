@@ -1,4 +1,5 @@
-![build status](https://dev.getphoto.io/getphoto/oauth-client/badges/master/build.svg)
+
+[![Build Status](https://travis-ci.org/fotografde/oauth-client.svg?branch=master)](https://travis-ci.org/fotografde/oauth-client)
 
 ![coverage](https://dev.getphoto.io/getphoto/oauth-client/badges/master/coverage.svg)
 
