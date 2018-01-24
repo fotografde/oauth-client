@@ -1,0 +1,29 @@
+{
+	"name": "GetPhoto/oauth-client",
+	"description": "Oauth fde client provider for usage with oauth-server",
+	"license": "MIT",
+	"version": "1.0.0",
+	"keywords": [
+		"oauth-client"
+	],
+	"authors": [
+		{
+			"name": "Ivan Toth",
+			"email": "ivan.toth@fotograf.de"
+		}
+	],
+	"require": {
+		"php": ">=5.5.9",
+		"league/oauth2-client": "^1.3",
+		"desarrolla2/cache": "^2.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.0",
+		"mockery/mockery": "^0.9.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"GetPhoto\\Oauth2\\Client\\": "src/"
+		}
+	}
+}
