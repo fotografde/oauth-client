@@ -2,7 +2,7 @@
 	"name": "fotografde/oauth-client",
 	"description": "Oauth fde client provider for usage with oauth-server",
 	"license": "MIT",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"keywords": [
 		"oauth-client"
 	],
