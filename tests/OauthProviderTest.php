@@ -174,6 +174,61 @@ class OauthProviderTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($email, $user->toArray()['email']);
 	}
 
+	public function testImpersonateGrant() {
+		$userId = rand(1000, 9999);
+		$name = uniqid();
+		$email = uniqid();
+
+		$postResponse = m::mock('Psr\Http\Message\ResponseInterface');
+		$postResponse->shouldReceive('getBody')->andReturn('access_token=mock_access_token');
+		$postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'application/x-www-form-urlencoded']);
+		$postResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+		$userResponse = m::mock('Psr\Http\Message\ResponseInterface');
+		$userResponse->shouldReceive('getBody')->andReturn(
+			'{
+          "resource_owner_type": "user",
+          "resource_owner_id": "' . $userId . '",
+          "client_id": "mock_client",
+          "scopes": {
+            "mock_scope": {
+              "id": "mock_scope",
+              "description": "some mock scope"
+            }
+          },
+          "user_data": {
+            "id": ' . $userId . ',
+            "name": "' . $name . '",
+            "email": "' . $email . '",
+            "created_at": "2016-02-29 15:03:36",
+            "updated_at": "2016-03-02 12:25:40"
+          }
+        }'
+		);
+		$userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+		$userResponse->shouldReceive('getStatusCode')->andReturn(200);
+
+		$client = m::mock('GuzzleHttp\ClientInterface');
+		$client->shouldReceive('send')
+			->times(2)
+			->andReturn($postResponse, $userResponse);
+		$this->provider->setHttpClient($client);
+
+		$token = $this->provider->getAccessToken(
+			'impersonate',
+			['scope' => 'mock_scope', 'username' => 'tt']
+		);
+		$this->assertEquals('mock_access_token', $token->getToken());
+		$user = $this->provider->getResourceOwner($token);
+
+		$this->assertEquals($userId, $user->getId());
+		$this->assertEquals($userId, $user->toArray()['id']);
+		$this->assertEquals($name, $user->getName());
+		$this->assertEquals($name, $user->toArray()['name']);
+		$this->assertEquals($email, $user->getEmail());
+		$this->assertEquals($email, $user->toArray()['email']);
+	}
+
 	/**
 	 * @expectedException League\OAuth2\Client\Provider\Exception\IdentityProviderException
 	 **/

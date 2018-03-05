@@ -9,6 +9,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use League\OAuth2\Client\Grant\AbstractGrant;
 use GetPhoto\Oauth2\Client\Grant\PasswordFtp;
+use GetPhoto\Oauth2\Client\Grant\Impersonate;
 use Psr\Http\Message\ResponseInterface;
 use GetPhoto\Oauth2\Client\Log\LoggerInterface;
 use GetPhoto\Oauth2\Client\Log\Logger;
@@ -74,6 +75,9 @@ class OauthProvider extends AbstractProvider {
 
 		//password_ftp grant
 		$this->grantFactory->setGrant('password_ftp', new PasswordFtp);
+
+		//impersonate grant
+		$this->grantFactory->setGrant('impersonate', new Impersonate);
 
 		//setting logger
 		if (empty($collaborators['logger'])) {
