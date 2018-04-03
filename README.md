@@ -1,7 +1,7 @@
 
 [![Build Status](https://travis-ci.org/fotografde/oauth-client.svg?branch=master)](https://travis-ci.org/fotografde/oauth-client)
 
-![coverage](https://dev.getphoto.io/getphoto/oauth-client/badges/master/coverage.svg)
+[![Coverage Status](https://coveralls.io/repos/github/fotografde/oauth-client/badge.svg?branch=master)](https://coveralls.io/github/fotografde/oauth-client?branch=master)
 
 # Getphoto Provider for OAuth 2.0 Client
 
