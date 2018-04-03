@@ -8,6 +8,11 @@ php:
   - 7.2
 
 before_script:
-  - composer install
+  - composer require satooshi/php-coveralls:dev-master
+  - composer install --dev
 
-script: php -d zend_extension=xdebug.so -d xdebug.max_nesting_level=300 -d xdebug.coverage_enable=On ./vendor/bin/phpunit  --coverage-text --colors=never tests
+script:
+  - ./vendor/bin/phpunit  --coverage-clover ./tests/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls -v
