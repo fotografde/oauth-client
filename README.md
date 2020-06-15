@@ -278,12 +278,17 @@ if ($response->getStatusCode() == 403 || $response->getStatusCode() == 401) {
 **NOTE:** For example of session implementation of CacherInterface check Oauth lib in core system. And usage in Jobs plugin ApiComponent
 
 
+
+## Logout
+There is a logout method now to expire the token, you should implement it in your logout flow to save some resources on our authentication server:
+```php
+
+$this->oauthProvider->expireAccessToken("g2WvRwXDQrIEmi0Qkcs0Qt11ch4AbkW2Yakh8BqI");
+```
+
+
 ## Testing
 
 ```sh
 $ ./vendor/bin/phpunit vendor/getphoto/oauth-client
 ```
-
-## To do
-
-- unit test other grant types
