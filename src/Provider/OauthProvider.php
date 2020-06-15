@@ -168,6 +168,15 @@ class OauthProvider extends AbstractProvider {
 	}
 
 	/**
+	 * Get logout url
+	 *
+	 * @return string
+	 */
+	public function getLogoutUrl() {
+		return $this->domain . '/oauth/logout';
+	}
+
+	/**
 	 * Get the default scopes used by this provider.
 	 *
 	 * This should not be a complete list of all scopes, but the minimum
@@ -313,6 +322,39 @@ class OauthProvider extends AbstractProvider {
 		$this->getCacher()->setPrefix($this->cachePrefix);
 
 		return $success;
+	}
+
+
+	/**
+	 * Expire access token (logout)
+	 *
+	 * @param  mixed $grant
+	 * @param  array $options
+	 * @throws IdentityProviderException
+	 * @return AccessTokenInterface
+	 */
+	public function expireAccessToken($token)
+	{
+		try {
+			$request = $this->getAuthenticatedRequest(self::METHOD_GET, $this->getLogoutUrl(), $token);
+
+			if ($this->getResponse($request)->getStatusCode() === 200) {
+				return true;
+			}
+		}
+		catch (\Exception $e) {
+			if (!empty($this->logger)) {
+				$this->logger->write(
+					'oauth_provider_' . $this->cachePrefix,
+					"Failed to expire access token \n" .
+					"\t \t Exception class: " .get_class($e) . "\n" .
+					"\t \t msg: " . $e->getMessage() . "\n" .
+					"\t \t code: " . $e->getCode() . "\n"
+				);
+			}
+		}
+
+		return false;
 	}
 
 }
