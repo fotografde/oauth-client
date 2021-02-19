@@ -2,6 +2,7 @@
 
 namespace GetPhoto\Oauth2\Client\Provider;
 
+use GetPhoto\Oauth2\Client\Grant\GoogleSso;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use InvalidArgumentException;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -78,6 +79,9 @@ class OauthProvider extends AbstractProvider {
 
 		//impersonate grant
 		$this->grantFactory->setGrant('impersonate', new Impersonate);
+
+		//google sso grant
+		$this->grantFactory->setGrant('google_sso', new GoogleSso);
 
 		//setting logger
 		if (empty($collaborators['logger'])) {
