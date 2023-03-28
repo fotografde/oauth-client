@@ -31,7 +31,7 @@ class OauthProvider extends AbstractProvider {
 	 *
 	 * @var string
 	 */
-	public $domain = 'https://auth.fotocdn.de';
+	public $domain = 'https://auth.getphoto.io';
 
 	/**
 	 * @var LoggerInterface
